@@ -1,20 +1,44 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star } from 'lucide-react'
+import { Star, Heart } from 'lucide-react'
 import type { Movie } from '@/lib/schemas'
+import { useWatchlistStore } from '@/store/use-watchlist'
+import { useEffect, useState } from 'react'
 
 interface MovieCardProps {
   movie: Movie
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const { addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlistStore()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const saved = isClient ? isInWatchlist(movie.id) : false
+
+  const handleToggleWatchlist = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (saved) {
+      removeFromWatchlist(movie.id)
+    } else {
+      addToWatchlist(movie)
+    }
+  }
+
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : '/placeholder-movie.png'
 
   return (
-    <Link href={`/movie/${movie.id}`} className="group">
-      <div className="relative overflow-hidden rounded-lg border border-border/40 bg-card transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/50 hover:-translate-y-1">
+    <Link href={`/movie/${movie.id}`} className="group relative block">
+      <div className="overflow-hidden rounded-lg border border-border/40 bg-card transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 hover:border-purple-500/50 hover:-translate-y-1">
         {/* Poster Image */}
         <div className="relative aspect-[2/3] overflow-hidden bg-muted">
           <Image
@@ -28,12 +52,24 @@ export default function MovieCard({ movie }: MovieCardProps) {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Rating Badge */}
-          <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-full">
-            <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-            <span className="text-xs font-semibold text-white">
-              {movie.vote_average.toFixed(1)}
-            </span>
+          {/* Top Actions: Rating & Watchlist */}
+          <div className="absolute top-2 right-2 left-2 flex items-center justify-between">
+            <div className="flex items-center gap-1 bg-black/80 backdrop-blur-sm px-2 py-1 rounded-full">
+              <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
+              <span className="text-xs font-semibold text-white">
+                {movie.vote_average.toFixed(1)}
+              </span>
+            </div>
+
+            <button
+              onClick={handleToggleWatchlist}
+              className={`p-1.5 rounded-full backdrop-blur-sm transition-colors ${saved
+                  ? 'bg-rose-500 text-white'
+                  : 'bg-black/50 text-white hover:bg-rose-500'
+                }`}
+            >
+              <Heart className={`h-4 w-4 ${saved ? 'fill-white' : ''}`} />
+            </button>
           </div>
         </div>
 

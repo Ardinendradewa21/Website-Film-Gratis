@@ -10,59 +10,71 @@ export default async function Home() {
   ])
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-900 via-purple-800 to-pink-800 text-white">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
-        <div className="container relative py-20 md:py-32">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-sm">
-              <Play className="h-4 w-4" />
-              <span>Now Streaming</span>
-            </div>
+      <section className="relative flex items-center bg-gradient-to-br from-purple-700 via-purple-600 to-pink-600 text-white">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-center" />
 
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              Discover Your Next
-              <span className="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-                Favorite Movie
-              </span>
-            </h1>
+        {/* Soft Glow */}
+        <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-[100px]" />
 
-            <p className="text-lg md:text-xl text-purple-100 max-w-2xl">
-              Explore thousands of movies, check ratings, watch trailers, and book your seats all in one place.
-            </p>
+        <div className="container relative mx-auto px-4 md:px-6 flex flex-col items-start text-left gap-6 py-20 md:py-32">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white transition-colors">
+            <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            <span>Now Streaming</span>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="inline-flex items-center justify-center rounded-full bg-white text-purple-900 hover:bg-purple-50 h-12 px-8 font-semibold transition-colors shadow-xl shadow-purple-900/30">
-                Browse Movies
-              </button>
-              <button className="inline-flex items-center justify-center rounded-full border-2 border-white/30 hover:bg-white/10 h-12 px-8 font-semibold transition-colors backdrop-blur-sm">
-                Watch Trailer
-              </button>
-            </div>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl">
+            Discover Your Next
+            <span className="block text-yellow-400 mt-2">
+              Favorite Movie
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-purple-100 max-w-2xl leading-relaxed">
+            Explore thousands of movies, check ratings, watch trailers, and book your seats all in one place.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full sm:w-auto">
+            <button className="inline-flex h-12 items-center justify-center rounded-full bg-white text-purple-700 px-8 font-bold transition-transform active:scale-95 hover:bg-white/90 shadow-lg">
+              Browse Movies
+            </button>
+            <button className="inline-flex h-12 items-center justify-center rounded-full border border-white hover:bg-white/10 px-8 font-bold backdrop-blur-sm transition-all text-white">
+              Watch Trailer
+            </button>
           </div>
         </div>
       </section>
 
       {/* Now Playing Section */}
-      <section className="container py-12 md:py-16">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-lg">
-            <Play className="h-5 w-5 text-white" />
+      <section className="container mx-auto px-4 md:px-6 py-16 md:py-24">
+        <div className="flex items-center justify-between mb-8 md:mb-12">
+          <div className="flex items-center gap-3">
+            <div className="bg-purple-500/10 p-2.5 rounded-xl">
+              <Play className="h-5 w-5 text-purple-500 fill-purple-500/20" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Now Playing</h2>
           </div>
-          <h2 className="text-3xl font-bold tracking-tight">Now Playing</h2>
+          <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            View All
+          </button>
         </div>
         <MovieGrid movies={nowPlayingData.results.slice(0, 10)} />
       </section>
 
       {/* Trending Section */}
-      <section className="bg-muted/30 py-12 md:py-16">
-        <div className="container">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="bg-gradient-to-br from-orange-600 to-red-600 p-2 rounded-lg">
-              <TrendingUp className="h-5 w-5 text-white" />
+      <section className="border-t border-white/5 bg-white/5 py-16 md:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between mb-8 md:mb-12">
+            <div className="flex items-center gap-3">
+              <div className="bg-orange-500/10 p-2.5 rounded-xl">
+                <TrendingUp className="h-5 w-5 text-orange-500" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Trending This Week</h2>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight">Trending This Week</h2>
+            <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              View All
+            </button>
           </div>
           <MovieGrid movies={trendingData.results.slice(0, 10)} />
         </div>

@@ -10,6 +10,7 @@ export const MovieSchema = z.object({
   vote_count: z.number(),
   release_date: z.string().optional(),
   genres: z.array(z.object({ id: z.number(), name: z.string() })).optional(),
+  runtime: z.number().optional(),
 });
 
 export const MovieListSchema = z.object({

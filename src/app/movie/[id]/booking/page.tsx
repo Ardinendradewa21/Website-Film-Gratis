@@ -5,6 +5,7 @@ import SeatSelector from '@/components/seat-selector'
 import Link from 'next/link'
 import { ArrowLeft, ShoppingCart } from 'lucide-react'
 import { use } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface BookingPageProps {
   params: Promise<{ id: string }>
@@ -16,6 +17,7 @@ export default function BookingPage({ params }: BookingPageProps) {
   const { id } = use(params)
   const { selectedSeats, clearSelection } = useBookingStore()
 
+  const router = useRouter()
   const totalPrice = selectedSeats.length * TICKET_PRICE
 
   const handleCheckout = () => {
@@ -24,8 +26,8 @@ export default function BookingPage({ params }: BookingPageProps) {
       return
     }
 
-    alert(`Booking confirmed!\nSeats: ${selectedSeats.join(', ')}\nTotal: Rp ${totalPrice.toLocaleString()}`)
     clearSelection()
+    router.push('/booking/success')
   }
 
   return (

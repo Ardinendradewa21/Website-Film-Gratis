@@ -52,3 +52,11 @@ export async function searchMovies(query: string) {
   const data = await fetchTMDB('/search/movie', { query });
   return MovieListSchema.parse(data);
 }
+
+export async function getMoviesByGenre(genreId: string) {
+  const data = await fetchTMDB('/discover/movie', {
+    with_genres: genreId,
+    sort_by: 'popularity.desc'
+  });
+  return MovieListSchema.parse(data);
+}
