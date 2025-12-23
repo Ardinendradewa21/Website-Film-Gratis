@@ -32,86 +32,64 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Section with Backdrop */}
-      <div className="relative min-h-[65vh] w-full">
-        {/* Full-screen Backdrop with Blur */}
-        {backdropUrl && (
-          <>
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                src={backdropUrl}
-                alt={movie.title}
-                fill
-                className="object-cover"
-                priority
-                quality={90}
-              />
-            </div>
-            {/* Heavy gradient overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-background/60" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
-          </>
-        )}
+      <div className="relative min-h-screen w-full">
 
         {/* Content Container */}
-        <div className="relative z-10 w-full pt-24 pb-16 px-4 md:px-8 lg:px-12">
+        <div className="relative z-10 w-full min-h-screen flex flex-col">
           {/* Back Button */}
-          <div className="max-w-7xl mx-auto mb-8">
+          <div className="pt-20 pb-8 px-4 md:px-8 lg:px-16">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border border-border/40 hover:bg-card transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-black/10 backdrop-blur-sm border border-black/20 hover:bg-black/20 transition-colors text-black"
             >
               <ArrowLeft className="h-4 w-4" />
-              <span>Back</span>
+              <span className="font-medium">Back</span>
             </Link>
           </div>
 
           {/* Main Content Grid */}
-          <div className="max-w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 mt-8">
-            {/* Poster */}
-            <div className="shrink-0 mx-auto md:mx-0">
-              <div className="relative w-[280px] md:w-[320px] lg:w-[360px] aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-                <Image
-                  src={posterUrl}
-                  alt={movie.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
+          <div className="flex-1 px-4 md:px-8 lg:px-16">
+            <div className="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16">
+              {/* Poster */}
+              <div className="shrink-0">
+                <div className="relative w-[380px] md:w-[450px] lg:w-[520px] aspect-[2/3] rounded-xl overflow-hidden shadow-2xl">
+                  <Image
+                    src={posterUrl}
+                    alt={movie.title}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Movie Info */}
-            <div className="flex-1 max-w-3xl space-y-6">
-              {/* Title */}
-              <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+              {/* Movie Info */}
+              <div className="flex-1 max-w-4xl space-y-8">
+                {/* Title */}
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black leading-tight">
                   {movie.title}
                 </h1>
 
                 {/* Metadata */}
-                <div className="flex flex-wrap items-center gap-3 text-sm md:text-base">
+                <div className="flex flex-wrap items-center gap-4 text-lg text-gray-700">
                   <div className="flex items-center gap-1.5">
-                    <Star className="h-5 w-5 fill-yellow-500 text-yellow-500" />
-                    <span className="font-bold">{movie.vote_average.toFixed(1)}</span>
-                    <span className="text-muted-foreground">/ 10</span>
+                    <Star className="h-6 w-6 fill-yellow-500 text-yellow-500" />
+                    <span className="font-semibold text-black">{movie.vote_average.toFixed(1)}</span>
+                    <span className="text-gray-600">/ 10</span>
                   </div>
 
                   {movie.release_date && (
                     <>
-                      <span className="text-muted-foreground">•</span>
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        <span>{new Date(movie.release_date).getFullYear()}</span>
-                      </div>
+                      <span className="text-gray-400">•</span>
+                      <span>{new Date(movie.release_date).getFullYear()}</span>
                     </>
                   )}
 
                   {movie.runtime && (
                     <>
-                      <span className="text-muted-foreground">•</span>
+                      <span className="text-gray-400">•</span>
                       <span>{formatRuntime(movie.runtime)}</span>
                     </>
                   )}
@@ -119,83 +97,44 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
 
                 {/* Genres */}
                 {movie.genres && movie.genres.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-3">
                     {movie.genres.map((genre) => (
                       <span
                         key={genre.id}
-                        className="px-4 py-1.5 rounded-full bg-secondary text-secondary-foreground text-sm font-medium border border-border/40"
+                        className="px-5 py-2 rounded-md bg-transparent text-black text-lg font-medium border border-black/30 hover:border-black/50 transition-colors"
                       >
                         {genre.name}
                       </span>
                     ))}
                   </div>
                 )}
-              </div>
 
-              {/* Overview */}
-              <div className="space-y-3">
-                <h2 className="text-xl font-bold">Overview</h2>
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  {movie.overview}
-                </p>
-              </div>
+                {/* Overview */}
+                <div className="space-y-6 pt-8">
+                  <h2 className="text-3xl md:text-4xl font-bold text-black">Overview</h2>
+                  <p className="text-xl md:text-2xl leading-loose text-gray-700">
+                    {movie.overview}
+                  </p>
+                </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Link
-                  href={`/movie/${id}/booking`}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 h-12 px-8 font-semibold transition-all shadow-lg shadow-purple-500/30"
-                >
-                  Book Seats
-                </Link>
-                <button className="inline-flex items-center gap-2 justify-center rounded-full bg-card hover:bg-card/80 border border-border/40 h-12 px-8 font-semibold transition-all">
-                  <Play className="h-4 w-4 fill-current" />
-                  <span>Watch Trailer</span>
-                </button>
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-5 pt-12">
+                  <Link
+                    href={`/movie/${id}/booking`}
+                    className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-pink-600 to-pink-500 text-white hover:from-pink-500 hover:to-pink-400 h-14 px-10 text-lg font-semibold transition-all shadow-lg shadow-pink-500/30"
+                  >
+                    Book Seats
+                  </Link>
+                  <button className="inline-flex items-center gap-2 justify-center rounded-full bg-black/10 hover:bg-black/20 backdrop-blur-sm border border-black/20 h-14 px-10 text-lg font-semibold transition-all text-black">
+                    <Play className="h-5 w-5 fill-current" />
+                    <span>Watch Trailer</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Cast Section - Below Hero */}
-      {cast.length > 0 && (
-        <section className="w-full py-16 px-4 md:px-8 lg:px-12 border-t border-border/40">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-lg">
-                <Users className="h-5 w-5 text-white" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold">Top Cast</h2>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {cast.map((actor) => (
-                <div key={actor.id} className="space-y-3 group">
-                  <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-muted border border-border/40 group-hover:border-purple-500/50 transition-all">
-                    {actor.profile_path ? (
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w300${actor.profile_path}`}
-                        alt={actor.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Users className="h-12 w-12 text-muted-foreground/30" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="space-y-1">
-                    <p className="font-semibold text-sm line-clamp-1">{actor.name}</p>
-                    <p className="text-xs text-muted-foreground line-clamp-1">{actor.character}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   )
 }

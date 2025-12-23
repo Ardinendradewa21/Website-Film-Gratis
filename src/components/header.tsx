@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4 md:px-6">
+      <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-8 lg:px-16">
         <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
           <div className="bg-gradient-to-tr from-purple-600 to-pink-600 p-1.5 rounded-lg shadow-lg shadow-purple-500/20">
             <Film className="h-5 w-5 text-white" />
