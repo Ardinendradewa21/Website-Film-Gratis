@@ -32,21 +32,15 @@ export default function Header() {
         <div className="flex items-center gap-4 shrink-0">
           <nav className="hidden md:flex items-center gap-6">
             <Link
-              href="/trending"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Trending
-            </Link>
-            <Link
               href="/watchlist"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Watchlist
             </Link>
           </nav>
-          <button className="inline-flex h-10 items-center justify-center rounded-full bg-foreground text-background px-6 text-sm font-bold shadow-sm transition-colors hover:bg-foreground/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+          <Link href="/login" className="inline-flex h-10 items-center justify-center rounded-full bg-foreground text-background px-6 text-sm font-bold shadow-sm transition-colors hover:bg-foreground/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
             Sign In
-          </button>
+          </Link>
         </div>
       </div>
     </header>
