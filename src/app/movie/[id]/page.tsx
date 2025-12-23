@@ -35,19 +35,19 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
     <div className="min-h-screen bg-black text-white">
       <div className="relative">
         {/* Backdrop Image - Absolute with heavy dimming */}
-        {/* Backdrop Image - Fixed Full Screen */}
+        {/* Backdrop Image - Absolute with heavy dimming */}
         {backdropUrl && (
-          <div className="fixed inset-0 w-full h-full -z-10">
+          <div className="absolute inset-0 h-[65vh] md:h-[75vh] w-full overflow-hidden">
             <Image
               src={backdropUrl}
               alt={movie.title}
               fill
-              className="object-cover opacity-50"
+              className="object-cover opacity-60"
               priority
             />
             {/* Gradient Overlays for readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
           </div>
         )}
 
