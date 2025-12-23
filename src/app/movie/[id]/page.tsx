@@ -34,7 +34,7 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
   return (
     <div className="min-h-screen">
       {/* Hero Section with Backdrop */}
-      <div className="relative min-h-[85vh] w-full">
+      <div className="relative min-h-[65vh] w-full">
         {/* Full-screen Backdrop with Blur */}
         {backdropUrl && (
           <>
@@ -69,7 +69,7 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
           </div>
 
           {/* Main Content Grid */}
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 mt-8">
+          <div className="max-w-full mx-auto flex flex-col md:flex-row gap-8 md:gap-12 mt-8">
             {/* Poster */}
             <div className="shrink-0 mx-auto md:mx-0">
               <div className="relative w-[280px] md:w-[320px] lg:w-[360px] aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
