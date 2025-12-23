@@ -18,7 +18,7 @@ export default async function Home() {
         {/* Soft Glow */}
         <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-[100px]" />
 
-        <div className="container relative mx-auto px-4 md:px-6 flex flex-col items-start text-left gap-6 py-20 md:py-32">
+        <div className="relative px-4 md:px-8 lg:px-16 flex flex-col items-start text-left gap-6 py-20 md:py-32">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-white transition-colors">
             <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
             <span>Now Streaming</span>
@@ -47,7 +47,7 @@ export default async function Home() {
       </section>
 
       {/* Now Playing Section */}
-      <section className="container mx-auto px-4 md:px-6 py-16 md:py-24">
+      <section className="px-4 md:px-8 lg:px-16 py-16 md:py-24">
         <div className="flex items-center justify-between mb-8 md:mb-12">
           <div className="flex items-center gap-3">
             <div className="bg-purple-500/10 p-2.5 rounded-xl">
@@ -64,7 +64,7 @@ export default async function Home() {
 
       {/* Trending Section */}
       <section className="border-t border-white/5 bg-white/5 py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="px-4 md:px-8 lg:px-16">
           <div className="flex items-center justify-between mb-8 md:mb-12">
             <div className="flex items-center gap-3">
               <div className="bg-orange-500/10 p-2.5 rounded-xl">
