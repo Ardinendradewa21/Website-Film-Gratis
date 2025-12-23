@@ -37,7 +37,7 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
         {/* Backdrop Image - Absolute with heavy dimming */}
         {/* Backdrop Image - Fixed Full Screen */}
         {backdropUrl && (
-          <div className="fixed inset-0 w-full h-full z-0">
+          <div className="fixed inset-0 w-full h-full -z-10">
             <Image
               src={backdropUrl}
               alt={movie.title}
