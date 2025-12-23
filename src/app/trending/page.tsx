@@ -1,11 +1,11 @@
-import { getNowPlaying } from '@/lib/tmdb'
+import { getTrending } from '@/lib/tmdb'
 import MovieGrid from '@/components/movie-grid'
-import { Play } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
-export default async function NowPlayingPage() {
-    const nowPlayingData = await getNowPlaying()
+export default async function TrendingPage() {
+    const trendingData = await getTrending()
 
     return (
         <div className="min-h-screen px-4 md:px-8 lg:px-16 py-12 md:py-16">
@@ -20,20 +20,20 @@ export default async function NowPlayingPage() {
 
             {/* Header */}
             <div className="flex items-center gap-3 mb-8">
-                <div className="bg-purple-500/10 p-2.5 rounded-xl">
-                    <Play className="h-5 w-5 text-purple-500 fill-purple-500/20" />
+                <div className="bg-orange-500/10 p-2.5 rounded-xl">
+                    <TrendingUp className="h-5 w-5 text-orange-500" />
                 </div>
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Now Playing</h1>
-                    <p className="text-muted-foreground mt-1">Currently showing in theaters</p>
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Trending This Week</h1>
+                    <p className="text-muted-foreground mt-1">Most popular movies right now</p>
                 </div>
             </div>
 
             {/* Movie Count */}
-            <p className="text-muted-foreground mb-6">{nowPlayingData.results.length} movies</p>
+            <p className="text-muted-foreground mb-6">{trendingData.results.length} movies</p>
 
             {/* Movies Grid */}
-            <MovieGrid movies={nowPlayingData.results} />
+            <MovieGrid movies={trendingData.results} />
         </div>
     )
 }

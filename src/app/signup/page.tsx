@@ -1,62 +1,76 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Film, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { Film, Mail, Lock, Eye, EyeOff, User } from 'lucide-react'
 import { useAuth } from '@/contexts/auth-context'
 
-export default function LoginPage() {
+export default function SignUpPage() {
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const { signIn, signInWithGoogle, signInWithGithub } = useAuth()
+    const { signUp, signInWithGoogle, signInWithGithub } = useAuth()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
-
-    const redirectUrl = searchParams.get('redirect') || '/'
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsLoading(true)
         setError('')
 
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            setError('Passwords do not match')
+            setIsLoading(false)
+            return
+        }
+
+        // Validate password length
+        if (password.length < 6) {
+            setError('Password must be at least 6 characters')
+            setIsLoading(false)
+            return
+        }
+
         try {
-            await signIn(email, password)
-            router.push(decodeURIComponent(redirectUrl))
+            await signUp(email, password)
+            router.push('/')
         } catch (err: any) {
-            setError(err.message || 'Failed to sign in')
+            setError(err.message || 'Failed to create account')
         } finally {
             setIsLoading(false)
         }
     }
 
-    const handleGoogleSignIn = async () => {
+    const handleGoogleSignUp = async () => {
         setIsLoading(true)
         setError('')
 
         try {
             await signInWithGoogle()
-            router.push(decodeURIComponent(redirectUrl))
+            router.push('/')
         } catch (err: any) {
-            setError(err.message || 'Failed to sign in with Google')
+            setError(err.message || 'Failed to sign up with Google')
         } finally {
             setIsLoading(false)
         }
     }
 
-    const handleGithubSignIn = async () => {
+    const handleGithubSignUp = async () => {
         setIsLoading(true)
         setError('')
 
         try {
             await signInWithGithub()
-            router.push(decodeURIComponent(redirectUrl))
+            router.push('/')
         } catch (err: any) {
-            setError(err.message || 'Failed to sign in with GitHub')
+            setError(err.message || 'Failed to sign up with GitHub')
         } finally {
             setIsLoading(false)
         }
@@ -75,8 +89,8 @@ export default function LoginPage() {
                             WebFilm
                         </span>
                     </Link>
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Welcome Back</h1>
-                    <p className="text-muted-foreground">Sign in to continue to your account</p>
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Create Account</h1>
+                    <p className="text-muted-foreground">Sign up to start booking movies</p>
                 </div>
 
                 {/* Error Message */}
@@ -86,8 +100,27 @@ export default function LoginPage() {
                     </div>
                 )}
 
-                {/* Login Form */}
+                {/* Sign Up Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Name Input */}
+                    <div className="space-y-2">
+                        <label htmlFor="name" className="text-sm font-medium">
+                            Full Name
+                        </label>
+                        <div className="relative">
+                            <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <input
+                                id="name"
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="John Doe"
+                                required
+                                className="w-full h-12 pl-10 pr-4 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                            />
+                        </div>
+                    </div>
+
                     {/* Email Input */}
                     <div className="space-y-2">
                         <label htmlFor="email" className="text-sm font-medium">
@@ -119,7 +152,7 @@ export default function LoginPage() {
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
+                                placeholder="At least 6 characters"
                                 required
                                 className="w-full h-12 pl-10 pr-12 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                             />
@@ -137,21 +170,34 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    {/* Remember Me & Forgot Password */}
-                    <div className="flex items-center justify-between">
-                        <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                className="w-4 h-4 rounded border-border text-purple-600 focus:ring-2 focus:ring-purple-500"
-                            />
-                            <span className="text-sm">Remember me</span>
+                    {/* Confirm Password Input */}
+                    <div className="space-y-2">
+                        <label htmlFor="confirmPassword" className="text-sm font-medium">
+                            Confirm Password
                         </label>
-                        <Link
-                            href="/forgot-password"
-                            className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
-                        >
-                            Forgot password?
-                        </Link>
+                        <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                            <input
+                                id="confirmPassword"
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                placeholder="Re-enter your password"
+                                required
+                                className="w-full h-12 pl-10 pr-12 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                {showConfirmPassword ? (
+                                    <EyeOff className="h-5 w-5" />
+                                ) : (
+                                    <Eye className="h-5 w-5" />
+                                )}
+                            </button>
+                        </div>
                     </div>
 
                     {/* Submit Button */}
@@ -160,7 +206,7 @@ export default function LoginPage() {
                         disabled={isLoading}
                         className="w-full h-12 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity shadow-lg shadow-purple-500/30"
                     >
-                        {isLoading ? 'Signing in...' : 'Sign In'}
+                        {isLoading ? 'Creating account...' : 'Sign Up'}
                     </button>
                 </form>
 
@@ -174,11 +220,11 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                {/* Social Login */}
+                {/* Social Sign Up */}
                 <div className="grid grid-cols-2 gap-4">
                     <button
                         type="button"
-                        onClick={handleGoogleSignIn}
+                        onClick={handleGoogleSignUp}
                         disabled={isLoading}
                         className="h-12 rounded-lg border border-border hover:bg-muted transition-colors flex items-center justify-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -204,7 +250,7 @@ export default function LoginPage() {
                     </button>
                     <button
                         type="button"
-                        onClick={handleGithubSignIn}
+                        onClick={handleGithubSignUp}
                         disabled={isLoading}
                         className="h-12 rounded-lg border border-border hover:bg-muted transition-colors flex items-center justify-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -215,11 +261,11 @@ export default function LoginPage() {
                     </button>
                 </div>
 
-                {/* Sign Up Link */}
+                {/* Sign In Link */}
                 <p className="text-center text-sm text-muted-foreground">
-                    Don't have an account?{' '}
-                    <Link href="/signup" className="font-medium text-purple-600 hover:text-purple-500 transition-colors">
-                        Sign up
+                    Already have an account?{' '}
+                    <Link href="/login" className="font-medium text-purple-600 hover:text-purple-500 transition-colors">
+                        Sign in
                     </Link>
                 </p>
             </div>

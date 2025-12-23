@@ -1,6 +1,7 @@
 import { getNowPlaying, getTrending } from '@/lib/tmdb'
 import MovieGrid from '@/components/movie-grid'
 import { Play, TrendingUp } from 'lucide-react'
+import Link from 'next/link'
 
 export default async function Home() {
   // Fetch data from TMDB API
@@ -55,9 +56,9 @@ export default async function Home() {
             </div>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Now Playing</h2>
           </div>
-          <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/now-playing" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             View All
-          </button>
+          </Link>
         </div>
         <MovieGrid movies={nowPlayingData.results.slice(0, 10)} />
       </section>
@@ -72,9 +73,9 @@ export default async function Home() {
               </div>
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Trending This Week</h2>
             </div>
-            <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/trending" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               View All
-            </button>
+            </Link>
           </div>
           <MovieGrid movies={trendingData.results.slice(0, 10)} />
         </div>

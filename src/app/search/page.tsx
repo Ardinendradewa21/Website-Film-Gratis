@@ -13,7 +13,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     const searchResults = query ? await searchMovies(query) : { results: [] }
 
     return (
-        <div className="min-h-screen container py-12 md:py-16">
+        <div className="min-h-screen px-4 md:px-8 lg:px-16 py-12 md:py-16">
             <div className="flex items-center gap-3 mb-8">
                 <div className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-lg">
                     <Search className="h-5 w-5 text-white" />

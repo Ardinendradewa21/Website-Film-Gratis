@@ -36,16 +36,36 @@ export default async function MovieDetailPage({ params }: MovieDetailPageProps) 
       {/* Hero Section with Backdrop */}
       <div className="relative min-h-screen w-full">
 
+        {/* Full-screen Backdrop with Blur */}
+        {backdropUrl && (
+          <>
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={backdropUrl}
+                alt={movie.title}
+                fill
+                className="object-cover opacity-80"
+                priority
+                quality={90}
+              />
+            </div>
+            {/* Light overlays */}
+            <div className="absolute inset-0 bg-white/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/30 to-white/20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent" />
+          </>
+        )}
+
         {/* Content Container */}
         <div className="relative z-10 w-full min-h-screen flex flex-col">
           {/* Back Button */}
           <div className="pt-20 pb-8 px-4 md:px-8 lg:px-16">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-black/10 backdrop-blur-sm border border-black/20 hover:bg-black/20 transition-colors text-black"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back</span>
+              <span>Back to Home</span>
             </Link>
           </div>
 
