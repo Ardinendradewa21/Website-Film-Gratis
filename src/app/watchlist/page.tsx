@@ -15,7 +15,7 @@ export default function WatchlistPage() {
 
     if (!isClient) {
         return (
-            <div className="min-h-screen container py-12 md:py-16">
+            <div className="min-h-screen px-4 md:px-8 lg:px-16 py-12 md:py-16">
                 <div className="flex items-center gap-3 mb-8">
                     <div className="bg-gradient-to-br from-rose-500 to-pink-500 p-2 rounded-lg">
                         <Heart className="h-5 w-5 text-white" />
@@ -32,7 +32,7 @@ export default function WatchlistPage() {
     }
 
     return (
-        <div className="min-h-screen container py-12 md:py-16">
+        <div className="min-h-screen px-4 md:px-8 lg:px-16 py-12 md:py-16">
             <div className="flex items-center gap-3 mb-8">
                 <div className="bg-gradient-to-br from-rose-500 to-pink-500 p-2 rounded-lg">
                     <Heart className="h-5 w-5 text-white" />

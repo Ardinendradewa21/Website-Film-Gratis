@@ -43,16 +43,16 @@ export default function SeatSelector() {
 
       {/* Seats Grid */}
       <div className="flex justify-center">
-        <div className="space-y-3">
+        <div className="space-y-4">
           {rows.map((row) => (
-            <div key={row} className="flex items-center gap-2">
+            <div key={row} className="flex items-center gap-3">
               {/* Row Label */}
-              <span className="w-6 text-center font-semibold text-muted-foreground">
+              <span className="w-8 text-center font-semibold text-muted-foreground text-base">
                 {row}
               </span>
 
               {/* Seats */}
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 {Array.from({ length: SEATS_PER_ROW }, (_, i) => {
                   const seatNumber = i + 1
                   const seatId = `${row}${seatNumber}`
@@ -64,22 +64,22 @@ export default function SeatSelector() {
                       onClick={() => status === 'available' && toggleSeat(seatId)}
                       disabled={status === 'occupied'}
                       className={`
-                        w-8 h-8 md:w-10 md:h-10 rounded-lg
+                        w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-lg
                         flex items-center justify-center
-                        text-xs font-semibold
+                        text-sm font-semibold
                         transition-all duration-200
                         ${getSeatClass(status)}
                       `}
                       title={seatId}
                     >
-                      {status === 'selected' && <Check className="h-4 w-4" />}
+                      {status === 'selected' && <Check className="h-5 w-5" />}
                     </button>
                   )
                 })}
               </div>
 
               {/* Row Label (right side) */}
-              <span className="w-6 text-center font-semibold text-muted-foreground">
+              <span className="w-8 text-center font-semibold text-muted-foreground text-base">
                 {row}
               </span>
             </div>
@@ -90,16 +90,16 @@ export default function SeatSelector() {
       {/* Legend */}
       <div className="flex justify-center gap-6 flex-wrap">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-secondary" />
-          <span className="text-sm">Available</span>
+          <div className="w-8 h-8 rounded bg-secondary" />
+          <span className="text-base font-medium">Available</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-gradient-to-br from-purple-600 to-pink-600" />
-          <span className="text-sm">Selected</span>
+          <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-600 to-pink-600" />
+          <span className="text-base font-medium">Selected</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-muted" />
-          <span className="text-sm">Occupied</span>
+          <div className="w-8 h-8 rounded bg-muted" />
+          <span className="text-base font-medium">Occupied</span>
         </div>
       </div>
     </div>
