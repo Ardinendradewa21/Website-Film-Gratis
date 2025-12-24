@@ -113,5 +113,5 @@ export async function getBookings(userId: string): Promise<Booking[]> {
 
 export async function cancelBooking(userId: string, bookingId: string): Promise<void> {
     const docRef = doc(db, 'users', userId, 'bookings', bookingId)
-    await setDoc(docRef, { status: 'cancelled' }, { merge: true })
+    await deleteDoc(docRef)
 }
