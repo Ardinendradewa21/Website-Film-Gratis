@@ -4,31 +4,22 @@ import Image from 'next/image'
 import { Star, Calendar, ArrowLeft, Users, Play } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { Movie, Cast } from '@/lib/schemas'
+import type { Movie } from '@/lib/schemas'
 
 interface MovieDetailClientProps {
     id: string
 }
 
-interface Credits {
-    cast: Cast[]
-}
-
 export default function MovieDetailClient({ id }: MovieDetailClientProps) {
     const [movie, setMovie] = useState<Movie | null>(null)
-    const [credits, setCredits] = useState<Credits | null>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { getMovieDetails, getMovieCredits } = await import('@/lib/tmdb')
-                const [movieData, creditsData] = await Promise.all([
-                    getMovieDetails(id),
-                    getMovieCredits(id),
-                ])
+                const { getMovieDetails } = await import('@/lib/tmdb')
+                const movieData = await getMovieDetails(id)
                 setMovie(movieData)
-                setCredits(creditsData)
             } catch (error) {
                 console.error('Failed to fetch movie:', error)
             } finally {
@@ -55,7 +46,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
         )
     }
 
-    if (!movie || !credits) {
+    if (!movie) {
         return (
             <div className="min-h-screen py-12 flex items-center justify-center">
                 <div className="text-center">
@@ -75,8 +66,6 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
     const backdropUrl = movie.backdrop_path
         ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
         : null
-
-    const cast = credits.cast.slice(0, 10)
 
     const formatRuntime = (minutes?: number) => {
         if (!minutes) return null
@@ -179,40 +168,5 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     </div>
                 </div>
             </div>
-
-            {/* Cast Section */}
-            {cast.length > 0 && (
-                <div className="px-4 md:px-8 lg:px-16 py-12">
-                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                        <Users className="h-6 w-6" />
-                        Cast
-                    </h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                        {cast.map((actor) => (
-                            <div key={actor.id} className="space-y-2">
-                                <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-muted border border-border/40">
-                                    {actor.profile_path ? (
-                                        <Image
-                                            src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                                            alt={actor.name}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <Users className="h-12 w-12 text-muted-foreground" />
-                                        </div>
-                                    )}
-                                </div>
-                                <div>
-                                    <p className="font-semibold text-sm">{actor.name}</p>
-                                    <p className="text-xs text-muted-foreground">{actor.character}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </div>
-    )
+            )
 }
