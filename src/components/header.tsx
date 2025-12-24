@@ -46,14 +46,13 @@ export default function Header() {
 
         {!isAuthPage && (
           <div className="flex items-center gap-4 shrink-0">
-            <nav className="hidden md:flex items-center gap-6">
-              <Link
-                href="/watchlist"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                My Collection
-              </Link>
-            </nav>
+            <Link
+              href="/watchlist"
+              className="inline-flex items-center justify-center rounded-full hover:bg-purple-500/10 transition-colors h-10 w-10"
+              title="My Watchlist"
+            >
+              <Film className="h-5 w-5" />
+            </Link>
 
             {user ? (
               <div className="relative">
