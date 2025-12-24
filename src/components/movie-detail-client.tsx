@@ -95,7 +95,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     {/* Back Button */}
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+                        className="inline-flex items-center gap-2 text-foreground hover:text-foreground/80 transition-colors mb-8"
                     >
                         <ArrowLeft className="h-5 w-5" />
                         <span className="text-base">Back to Home</span>
@@ -118,7 +118,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                             <div>
                                 <h1 className="text-6xl md:text-7xl font-bold mb-8">{movie.title}</h1>
 
-                                <div className="flex flex-wrap items-center gap-8 text-lg text-muted-foreground mb-8">
+                                <div className="flex flex-wrap items-center gap-8 text-lg text-foreground mb-8">
                                     {movie.release_date && (
                                         <div className="flex items-center gap-2">
                                             <Calendar className="h-6 w-6" />
@@ -141,7 +141,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                                     {movie.genres?.map((genre) => (
                                         <span
                                             key={genre.id}
-                                            className="px-5 py-2.5 rounded-full bg-purple-500/20 text-purple-300 text-lg border border-purple-500/30 font-medium"
+                                            className="px-5 py-2.5 rounded-full bg-transparent text-foreground text-lg border border-foreground/30 font-medium"
                                         >
                                             {genre.name}
                                         </span>
@@ -151,7 +151,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
 
                             <div>
                                 <h2 className="text-3xl font-bold mb-5">Overview</h2>
-                                <p className="text-muted-foreground leading-relaxed text-xl">{movie.overview}</p>
+                                <p className="text-foreground leading-relaxed text-xl">{movie.overview}</p>
                             </div>
 
                             <div className="flex gap-4 pt-6">
