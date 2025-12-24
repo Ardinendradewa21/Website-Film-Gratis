@@ -4,7 +4,11 @@ import Image from 'next/image'
 import { Star, Calendar, ArrowLeft, Users, Play } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { Movie } from '@/lib/schemas'
+import type { Movie, Cast } from '@/lib/schemas'
+
+interface Credits {
+    cast: Cast[]
+}
 
 interface MovieDetailClientProps {
     id: string
@@ -12,14 +16,19 @@ interface MovieDetailClientProps {
 
 export default function MovieDetailClient({ id }: MovieDetailClientProps) {
     const [movie, setMovie] = useState<Movie | null>(null)
+    const [credits, setCredits] = useState<Credits | null>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { getMovieDetails } = await import('@/lib/tmdb')
-                const movieData = await getMovieDetails(id)
+                const { getMovieDetails, getMovieCredits } = await import('@/lib/tmdb')
+                const [movieData, creditsData] = await Promise.all([
+                    getMovieDetails(id),
+                    getMovieCredits(id),
+                ])
                 setMovie(movieData)
+                setCredits(creditsData)
             } catch (error) {
                 console.error('Failed to fetch movie:', error)
             } finally {
@@ -46,7 +55,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
         )
     }
 
-    if (!movie) {
+    if (!movie || !credits) {
         return (
             <div className="min-h-screen py-12 flex items-center justify-center">
                 <div className="text-center">
@@ -154,6 +163,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                                 <p className="text-foreground leading-relaxed text-xl">{movie.overview}</p>
                             </div>
 
+
                             <div className="flex gap-4 pt-6">
                                 <Link
                                     href={`/movie/${id}/booking`}
@@ -167,6 +177,40 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     </div>
                 </div>
             </div>
+
+            {/* Cast Section */}
+            {credits.cast.length > 0 && (
+                <div className="px-4 md:px-8 lg:px-16 py-12 bg-background">
+                    <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                        <Users className="h-6 w-6" />
+                        Cast
+                    </h2>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                        {credits.cast.slice(0, 16).map((actor) => (
+                            <div key={actor.id} className="space-y-2">
+                                <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-muted border border-border/40">
+                                    {actor.profile_path ? (
+                                        <Image
+                                            src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
+                                            alt={actor.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <Users className="h-8 w-8 text-muted-foreground" />
+                                        </div>
+                                    )}
+                                </div>
+                                <div>
+                                    <p className="font-semibold text-xs line-clamp-2">{actor.name}</p>
+                                    <p className="text-[10px] text-muted-foreground line-clamp-1">{actor.character}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
