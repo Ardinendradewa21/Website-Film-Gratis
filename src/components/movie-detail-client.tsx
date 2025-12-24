@@ -75,11 +75,11 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen bg-background">
             {/* Hero Section with Backdrop */}
             <div className="relative">
                 {backdropUrl && (
-                    <div className="absolute top-0 left-0 right-0 h-[600px]">
+                    <div className="absolute top-0 left-0 right-0 h-full min-h-[800px]">
                         <Image
                             src={backdropUrl}
                             alt={movie.title}
