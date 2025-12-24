@@ -79,15 +79,15 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
             {/* Hero Section with Backdrop */}
             <div className="relative">
                 {backdropUrl && (
-                    <div className="absolute inset-0 h-[600px]">
+                    <div className="absolute top-0 left-0 right-0 h-[600px]">
                         <Image
                             src={backdropUrl}
                             alt={movie.title}
                             fill
-                            className="object-cover"
+                            className="object-cover object-top"
                             priority
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/20" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/10" />
                     </div>
                 )}
 
