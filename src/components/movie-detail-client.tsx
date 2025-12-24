@@ -91,7 +91,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     </div>
                 )}
 
-                <div className="relative container py-16">
+                <div className="relative px-4 md:px-8 lg:px-16 py-16">
                     {/* Back Button */}
                     <Link
                         href="/"
