@@ -28,21 +28,23 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-8 lg:px-16">
-        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-          <div className="bg-gradient-to-tr from-purple-600 to-pink-600 p-1.5 rounded-lg shadow-lg shadow-purple-500/20">
-            <Film className="h-5 w-5 text-white" />
-          </div>
-          <span className="hidden sm:inline-block font-bold text-lg tracking-tight">
-            WebFilm
-          </span>
-        </Link>
+        {/* Left side: Logo + Search */}
+        <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80 shrink-0">
+            <div className="bg-gradient-to-tr from-purple-600 to-pink-600 p-1.5 rounded-lg shadow-lg shadow-purple-500/20">
+              <Film className="h-5 w-5 text-white" />
+            </div>
+            <span className="hidden sm:inline-block font-bold text-lg tracking-tight">
+              WebFilm
+            </span>
+          </Link>
 
-        {/* Mobile Search - Hidden on auth pages */}
-        {!isAuthPage && (
-          <div className="flex-1 max-w-sm md:max-w-md mx-4">
-            <SearchBar onSearch={handleSearch} placeholder="Search movies..." />
-          </div>
-        )}
+          {!isAuthPage && (
+            <div className="w-64 md:w-80">
+              <SearchBar onSearch={handleSearch} placeholder="Search movies..." />
+            </div>
+          )}
+        </div>
 
         {!isAuthPage && (
           <div className="flex items-center gap-4 shrink-0">
