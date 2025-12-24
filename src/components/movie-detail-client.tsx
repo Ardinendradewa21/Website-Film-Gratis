@@ -169,6 +169,5 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                 </div>
             </div>
         </div>
-        </div >
     )
 }
