@@ -87,7 +87,7 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                             className="object-cover object-top"
                             priority
                         />
-                        <div className="absolute inset-0 bg-background/40" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-background/60 from-0% via-background/60 via-70% to-background to-100%" />
                     </div>
                 )}
 
