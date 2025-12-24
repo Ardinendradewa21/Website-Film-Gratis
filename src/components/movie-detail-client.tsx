@@ -102,10 +102,10 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     </div>
                 )}
 
-                <div className="relative px-4 md:px-8 lg:px-16 py-12">
-                    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8 max-w-7xl">
+                <div className="relative px-4 md:px-8 lg:px-16 py-16">
+                    <div className="grid grid-cols-1 md:grid-cols-[400px_1fr] gap-12 max-w-7xl mx-auto">
                         {/* Poster */}
-                        <div className="relative aspect-[2/3] w-full max-w-[300px] mx-auto md:mx-0 rounded-lg overflow-hidden shadow-2xl border border-border/40">
+                        <div className="relative aspect-[2/3] w-full max-w-[400px] mx-auto md:mx-0 rounded-2xl overflow-hidden shadow-2xl border border-border/40">
                             <Image
                                 src={posterUrl}
                                 alt={movie.title}
@@ -116,33 +116,34 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                         </div>
 
                         {/* Movie Info */}
-                        <div className="space-y-6">
+                        <div className="space-y-8">
                             <div>
-                                <h1 className="text-4xl md:text-5xl font-bold mb-4">{movie.title}</h1>
+                                <h1 className="text-5xl md:text-6xl font-bold mb-6">{movie.title}</h1>
 
-                                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
+                                <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground mb-6">
                                     {movie.release_date && (
-                                        <div className="flex items-center gap-1">
-                                            <Calendar className="h-4 w-4" />
+                                        <div className="flex items-center gap-2">
+                                            <Calendar className="h-5 w-5" />
                                             <span>{new Date(movie.release_date).getFullYear()}</span>
                                         </div>
                                     )}
                                     {movie.runtime && (
-                                        <div className="flex items-center gap-1">
+                                        <div className="flex items-center gap-2">
                                             <span>{formatRuntime(movie.runtime)}</span>
                                         </div>
                                     )}
-                                    <div className="flex items-center gap-1">
-                                        <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                                        <span className="font-semibold">{movie.vote_average.toFixed(1)}</span>
+                                    <div className="flex items-center gap-2">
+                                        <Star className="h-5 w-5 fill-yellow-500 text-yellow-500" />
+                                        <span className="font-semibold text-lg">{movie.vote_average.toFixed(1)}</span>
+                                        <span className="text-muted-foreground">/ 10</span>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap gap-2 mb-6">
+                                <div className="flex flex-wrap gap-3 mb-8">
                                     {movie.genres?.map((genre) => (
                                         <span
                                             key={genre.id}
-                                            className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm border border-purple-500/30"
+                                            className="px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 text-base border border-purple-500/30 font-medium"
                                         >
                                             {genre.name}
                                         </span>
@@ -151,17 +152,17 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                             </div>
 
                             <div>
-                                <h2 className="text-xl font-bold mb-3">Overview</h2>
-                                <p className="text-muted-foreground leading-relaxed">{movie.overview}</p>
+                                <h2 className="text-2xl font-bold mb-4">Overview</h2>
+                                <p className="text-muted-foreground leading-relaxed text-lg">{movie.overview}</p>
                             </div>
 
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 pt-4">
                                 <Link
                                     href={`/movie/${id}/booking`}
-                                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 h-12 px-8 font-semibold transition-opacity shadow-xl shadow-purple-500/30"
+                                    className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 h-14 px-10 text-lg font-semibold transition-opacity shadow-xl shadow-purple-500/30"
                                 >
-                                    <Play className="h-4 w-4" />
-                                    <span>Book Now</span>
+                                    <Play className="h-5 w-5" />
+                                    <span>Book Seats</span>
                                 </Link>
                             </div>
                         </div>
