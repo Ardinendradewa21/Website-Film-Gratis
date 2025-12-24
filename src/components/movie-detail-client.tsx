@@ -76,21 +76,10 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
 
     return (
         <div className="min-h-screen">
-            {/* Back Button */}
-            <div className="px-4 md:px-8 lg:px-16 py-6">
-                <Link
-                    href="/"
-                    className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                    <ArrowLeft className="h-4 w-4" />
-                    <span>Back to Home</span>
-                </Link>
-            </div>
-
             {/* Hero Section with Backdrop */}
             <div className="relative">
                 {backdropUrl && (
-                    <div className="absolute inset-0 h-[500px]">
+                    <div className="absolute inset-0 h-[600px]">
                         <Image
                             src={backdropUrl}
                             alt={movie.title}
@@ -102,10 +91,19 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                     </div>
                 )}
 
-                <div className="relative px-4 md:px-8 lg:px-16 py-16">
-                    <div className="grid grid-cols-1 md:grid-cols-[400px_1fr] gap-12 max-w-7xl mx-auto">
+                <div className="relative container py-16">
+                    {/* Back Button */}
+                    <Link
+                        href="/"
+                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
+                    >
+                        <ArrowLeft className="h-5 w-5" />
+                        <span className="text-base">Back to Home</span>
+                    </Link>
+
+                    <div className="grid grid-cols-1 md:grid-cols-[450px_1fr] gap-16">
                         {/* Poster */}
-                        <div className="relative aspect-[2/3] w-full max-w-[400px] mx-auto md:mx-0 rounded-2xl overflow-hidden shadow-2xl border border-border/40">
+                        <div className="relative aspect-[2/3] w-full max-w-[450px] rounded-2xl overflow-hidden shadow-2xl border border-border/40">
                             <Image
                                 src={posterUrl}
                                 alt={movie.title}
@@ -116,34 +114,34 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                         </div>
 
                         {/* Movie Info */}
-                        <div className="space-y-8">
+                        <div className="space-y-10">
                             <div>
-                                <h1 className="text-5xl md:text-6xl font-bold mb-6">{movie.title}</h1>
+                                <h1 className="text-6xl md:text-7xl font-bold mb-8">{movie.title}</h1>
 
-                                <div className="flex flex-wrap items-center gap-6 text-base text-muted-foreground mb-6">
+                                <div className="flex flex-wrap items-center gap-8 text-lg text-muted-foreground mb-8">
                                     {movie.release_date && (
                                         <div className="flex items-center gap-2">
-                                            <Calendar className="h-5 w-5" />
-                                            <span>{new Date(movie.release_date).getFullYear()}</span>
+                                            <Calendar className="h-6 w-6" />
+                                            <span className="text-xl">{new Date(movie.release_date).getFullYear()}</span>
                                         </div>
                                     )}
                                     {movie.runtime && (
                                         <div className="flex items-center gap-2">
-                                            <span>{formatRuntime(movie.runtime)}</span>
+                                            <span className="text-xl">{formatRuntime(movie.runtime)}</span>
                                         </div>
                                     )}
                                     <div className="flex items-center gap-2">
-                                        <Star className="h-5 w-5 fill-yellow-500 text-yellow-500" />
-                                        <span className="font-semibold text-lg">{movie.vote_average.toFixed(1)}</span>
-                                        <span className="text-muted-foreground">/ 10</span>
+                                        <Star className="h-6 w-6 fill-yellow-500 text-yellow-500" />
+                                        <span className="font-semibold text-2xl">{movie.vote_average.toFixed(1)}</span>
+                                        <span className="text-muted-foreground text-xl">/ 10</span>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap gap-3 mb-8">
+                                <div className="flex flex-wrap gap-4 mb-10">
                                     {movie.genres?.map((genre) => (
                                         <span
                                             key={genre.id}
-                                            className="px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 text-base border border-purple-500/30 font-medium"
+                                            className="px-5 py-2.5 rounded-full bg-purple-500/20 text-purple-300 text-lg border border-purple-500/30 font-medium"
                                         >
                                             {genre.name}
                                         </span>
@@ -152,16 +150,16 @@ export default function MovieDetailClient({ id }: MovieDetailClientProps) {
                             </div>
 
                             <div>
-                                <h2 className="text-2xl font-bold mb-4">Overview</h2>
-                                <p className="text-muted-foreground leading-relaxed text-lg">{movie.overview}</p>
+                                <h2 className="text-3xl font-bold mb-5">Overview</h2>
+                                <p className="text-muted-foreground leading-relaxed text-xl">{movie.overview}</p>
                             </div>
 
-                            <div className="flex gap-4 pt-4">
+                            <div className="flex gap-4 pt-6">
                                 <Link
                                     href={`/movie/${id}/booking`}
-                                    className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 h-14 px-10 text-lg font-semibold transition-opacity shadow-xl shadow-purple-500/30"
+                                    className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 h-16 px-12 text-xl font-semibold transition-opacity shadow-xl shadow-purple-500/30"
                                 >
-                                    <Play className="h-5 w-5" />
+                                    <Play className="h-6 w-6" />
                                     <span>Book Seats</span>
                                 </Link>
                             </div>
