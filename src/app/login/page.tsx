@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Film, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/contexts/auth-context'
 
-export default function LoginPage() {
+function LoginPageContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const { signIn, signInWithGoogle, signInWithGithub } = useAuth()
@@ -224,5 +224,17 @@ export default function LoginPage() {
                 </p>
             </div>
         </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-purple-900 flex items-center justify-center">
+                <div className="text-white">Loading...</div>
+            </div>
+        }>
+            <LoginPageContent />
+        </Suspense>
     )
 }

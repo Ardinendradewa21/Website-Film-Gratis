@@ -7,6 +7,11 @@ interface GenrePageProps {
     searchParams: Promise<{ name?: string }>
 }
 
+// Enable dynamic routes in static export
+export async function generateStaticParams() {
+    return []
+}
+
 export default async function GenrePage({ params, searchParams }: GenrePageProps) {
     const { id } = await params
     const { name } = await searchParams
